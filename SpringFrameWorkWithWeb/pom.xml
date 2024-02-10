@@ -5,9 +5,9 @@
 
 	
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.kh</groupId>
-	<artifactId>spring</artifactId>
-	<name>springProject</name>
+	<groupId>com.jh</groupId>
+	<artifactId>webEx</artifactId>
+	<name>SpringWithWebPageEx</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	
