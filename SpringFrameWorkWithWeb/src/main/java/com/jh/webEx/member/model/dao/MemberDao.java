@@ -26,8 +26,16 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.checkId",checkId);
 	}
 	
-	
-	
+	//회원정보수정
+	public int updateMember(SqlSessionTemplate sqlSession,Member m) {
+				
+		return sqlSession.update("memberMapper.updateMember", m);
+	}
+	//회원삭제	
+	public int deleteMember(SqlSessionTemplate sqlSession,String userId) {
+			
+		return sqlSession.delete("memberMapper.deleteMember",userId);
+	}
 	
 	
 }

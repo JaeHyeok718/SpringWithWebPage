@@ -45,7 +45,17 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.checkId(sqlSession,checkId);
 	}
 
-	
+	//회원정보수정
+	@Override
+	public int updateMember(Member m) {
+		return memberDao.updateMember(sqlSession,m);
+	}
+		
+	//회원탈퇴 메소드
+	@Override
+	public int deleteMember(String userId) {
+			return memberDao.deleteMember(sqlSession,userId);
+	}
 	
 	
 	

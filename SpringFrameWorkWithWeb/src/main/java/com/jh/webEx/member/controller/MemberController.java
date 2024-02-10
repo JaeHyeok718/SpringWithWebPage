@@ -133,6 +133,75 @@ public class MemberController {
 		}
 		
 	}
+	@RequestMapping("mypage.me")
+	public String mypageForm() {
+		return "member/mypage";
+	}
 	
+	
+	@RequestMapping("update.me")
+	public ModelAndView updateMember(Member m
+									,HttpSession session
+									,ModelAndView mv) {
+		
+		//사용자가 수정한 데이터를 전달받아 m에 담고 해당 객체 정보를 데이터베이스에 수정작업처리하고 오기 
+		
+		int result = memberService.updateMember(m); //처리된 행수 전달받기(DML구문)
+		
+		if(result>0) { //수정성공
+			
+			//수정된 회원정보를 데이터베이스에서 다시 조회해오기(세션갱신하기)
+			Member loginUser = memberService.loginMember(m); //기존에 회원정보 조회메소드 활용
+			session.setAttribute("loginUser", loginUser);//조회한 데이터 세션에 갱신하기
+			session.setAttribute("alertMsg", "정보 수정 완료");
+			//마이페이지 재요청
+			mv.setViewName("redirect:mypage.me");
+		}else { //수정실패
+			
+			//에러페이지
+			mv.addObject("errorMsg","회원정보수정실패").setViewName("common/errorPage");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("delete.me")
+	public String deleteMember(String userPwd
+							  ,HttpSession session
+							  ,Model model) {
+		
+		//사용자가 입력한 패스워드와 조회한 회원의 패스워드(암호화되어있는)를 비교해서 일치한다면 회원 탈퇴시키기
+		
+		//세션에 담겨있는 로그인정보에서 패스워드 추출하기
+		
+		Member loginUser = ((Member)session.getAttribute("loginUser")); //세션에서 로그인 정보 추출
+		
+		String userId = loginUser.getUserId(); //아이디 추출
+		String loginUserPwd = loginUser.getUserPwd(); //비밀번호 추출
+		
+		if(bcryptPasswordEncoder.matches(userPwd, loginUserPwd)) { //같다(비밀번호 잘 입력함)
+			
+			int result = memberService.deleteMember(userId);
+			
+			if(result>0) { //탈퇴 성공
+				
+				session.setAttribute("alertMsg", "그동안 저희 사이트를 이용해주셔서 감사합니다.");
+				//세션에 있는 로그인 정보 지우기 
+				session.removeAttribute("loginUser");
+				return "redirect:/";
+				
+				
+			}else { //탈퇴 실패
+				model.addAttribute("errorMsg","회원 탈퇴 실패");
+				return "common/errorPage";
+			}
+			
+			
+		}else {//비밀번호 잘못입력
+			
+			session.setAttribute("alertMsg", "비밀번호를 잘못입력하셨습니다.");
+			return "redirect:mypage.me";
+		}
+	}
 	
 }
