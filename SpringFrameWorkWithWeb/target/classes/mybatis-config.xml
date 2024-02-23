@@ -11,6 +11,7 @@
   
   	<typeAliases>
   		<typeAlias type="com.jh.webEx.member.model.vo.Member" alias="member"/>
+  		<typeAlias type="com.jh.webEx.board.model.vo.Board" alias="board"/>
  	 </typeAliases>
   	
   	
