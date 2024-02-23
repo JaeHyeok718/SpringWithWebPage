@@ -178,12 +178,6 @@ public class BoardController {
 		}
 		
 		
-		//이미 있는데 새로 들어온 파일이 있는경우 
-		//기존 파일을 지우고 새로 들어온 파일을 등록하기 
-		//기존 파일 경로를 File 객체로 잡고 생성하여 delete메소드로 해당위치 파일 제거하기
-		//수정하기 작업 후 수정완료 메세지와 함께 해당 상세보기 페이지로 이동 
-		//실패시 에러메세지와 함께 에러페이지로 이동
-		
 	}
 	
 	@PostMapping("delete.bo")
@@ -211,20 +205,7 @@ public class BoardController {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//파일명 수정 모듈
+		//파일명 수정 모듈
 	public String saveFile(MultipartFile upfile
 						  ,HttpSession session) {
 		//파일명 수정하기 
@@ -257,35 +238,6 @@ public class BoardController {
 		
 		return changeName;
 	}
-	
-	
-	//게시글 top5 조회
-	
-
-	@ResponseBody
-	@RequestMapping("topList.bo")
-	public ArrayList<Board> selectTopList() {
-		
-	ArrayList<Board> list = boardService.selectTopList();
-	
-	
-		return list;
-		
-	
-		
-	}
-
-	
-	
-	//AOP를 적용시키는 사례 (위에 작성되어있는 topList를 이용해보기)
-	
-
-	
-	
-	
-	
-	
-	
 	
 	
 	
