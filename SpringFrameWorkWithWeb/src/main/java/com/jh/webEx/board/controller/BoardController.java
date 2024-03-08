@@ -63,6 +63,9 @@ public class BoardController {
 		return "board/boardListView";
 	}
 	
+	
+	
+	
 	@GetMapping("detail.bo")
 	public String boardDetail(int bno
 							 ,Model model) {
